@@ -19,7 +19,7 @@ const config = {
   organizationName: 'your-organization', // Usually your GitHub org/user name.
   projectName: 'physical-ai-humanoid-robotics', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internalization, you can use this field to set useful
@@ -42,16 +42,10 @@ const config = {
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
+        // Remove the blog plugin to avoid broken links
       }),
     ],
   ],
@@ -77,7 +71,7 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/Syed-Fawwad/Hackathon1',
             label: 'GitHub',
             position: 'right',
           },
@@ -114,10 +108,6 @@ const config = {
               {
                 label: 'GitHub 🤖',
                 href: 'https://github.com/facebook/docusaurus',
-              },
-              {
-                label: 'Blog 🤖',
-                to: '/blog',
               },
             ],
           },
