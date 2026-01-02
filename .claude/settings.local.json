@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -ExecutionPolicy Bypass -File .specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks)",
+      "Bash(powershell -ExecutionPolicy Bypass -File .specify/scripts/powershell/check-prerequisites.ps1 -PathsOnly)",
+      "Bash($env:SPECIFY_FEATURE=\"1-physical-ai-robotics\")",
+      "Bash(powershell -Command \"$env:SPECIFY_FEATURE=''1-physical-ai-robotics''; . ''.specify/scripts/powershell/check-prerequisites.ps1'' -Json -RequireTasks -IncludeTasks\")",
+      "Bash(powershell -Command \"Set-Location ''C:\\\\Users\\\\PMLS\\\\Desktop\\\\part1''; $env:SPECIFY_FEATURE=''1-physical-ai-robotics''; & ''.specify/scripts/powershell/check-prerequisites.ps1'' -Json -RequireTasks -IncludeTasks\")",
+      "Bash(mkdir -p book/docs/module-1-ros2 book/docs/module-2-digital-twin book/docs/module-3-ai-brain book/docs/module-4-vla book/docs/capstone)",
+      "Bash(mkdir -p book/src/ros2_examples book/src/gazebo_models book/src/unity_scenes book/src/isaac_ros_examples book/src/vla_integration)",
+      "Bash(mkdir -p book/docker book/scripts book/docusaurus)",
+      "Bash(powershell -Command \"Get-ChildItem -Path book -Recurse -Depth 2 | Where-Object { $_PSIsContainer } | ForEach-Object { $level = \\($_FullName -split ''\\\\''\\).Count - \\($env:USERPROFILE -split ''\\\\''\\).Count; \\(''  '' * $level\\) + $_Name }\")",
+      "Bash(npm run start)",
+      "Bash(npx docusaurus start)",
+      "Bash(npx docusaurus start --port 3001)",
+      "Bash(tasklist)",
+      "Bash(findstr \"node\")",
+      "Bash(npx docusaurus start --port 3002)",
+      "Bash(npx docusaurus start --port 3003)",
+      "Bash(npx docusaurus start --port 3004)",
+      "Bash(npx docusaurus start --port 3005)",
+      "Bash(git push -u origin master)",
+      "Bash(git ls-remote https://github.com/Syed-Fawwad/Hackathon.git)",
+      "Bash(git remote set-url origin https://github.com/Syed-Fawwad/Hackathon1.git)",
+      "Bash(git add .)",
+      "Bash(git commit -m \"chore: Add Vercel deployment configuration\n\n- Add vercel.json for proper deployment configuration\n- Update Docusaurus config for proper base URL\n- Add vercel-build script to package.json\")"
+    ]
+  }
+}
