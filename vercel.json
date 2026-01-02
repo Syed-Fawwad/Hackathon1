@@ -14,5 +14,6 @@
       "src": "/(.*)",
       "dest": "/book/docusaurus/build/$1"
     }
-  ]
+  ],
+  "outputDirectory": "book/docusaurus/build"
 }
