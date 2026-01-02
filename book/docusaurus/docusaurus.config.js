@@ -11,9 +11,9 @@ const config = {
   favicon: undefined, // Remove favicon reference for now
 
   // Set the production url of your site here
-  url: 'https://your-vercel-project.vercel.app', // This will be replaced by Vercel
+  url: 'https://your-project-name.vercel.app', // Vercel will replace this
   // Set the /<baseUrl>/ pathname under which your site is served
-  baseUrl: '/book/docusaurus/',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   organizationName: 'your-organization', // Usually your GitHub org/user name.
