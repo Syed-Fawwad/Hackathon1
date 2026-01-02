@@ -1,0 +1,26 @@
+{
+    "ProjectGenerator": {
+        "Version": "1.0.0"
+    },
+    "Project": {
+        "ProjectName": "HumanoidRoboticsUnity",
+        "ProjectGUID": "1234567890abcdef1234567890abcdef",
+        "UnityVersion": "2022.3.18f1",
+        "TargetPlatform": "StandaloneWindows64",
+        "ScriptingBackend": "Mono",
+        "ApiCompatibilityLevel": "NETStandard2.1"
+    },
+    "Packages": [
+        "com.unity.rosbridge.client",
+        "com.unity.inputsystem",
+        "com.unity.robotics.ros-tcp-connector"
+    ],
+    "Settings": {
+        "DefaultScene": "Assets/Scenes/MainScene.unity",
+        "BuildTarget": "StandaloneWindows64",
+        "ScriptCompilation": {
+            "EnableRoslynAnalyzers": true,
+            "CompilationMode": "ScriptCompilationMode.UseUnityDebugger"
+        }
+    }
+}

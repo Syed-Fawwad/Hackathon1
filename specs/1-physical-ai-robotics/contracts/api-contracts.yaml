@@ -1,0 +1,428 @@
+openapi: 3.0.0
+info:
+  title: Physical AI & Humanoid Robotics API
+  description: API contracts for the Physical AI & Humanoid Robotics system based on the functional requirements from the specification
+  version: 1.0.0
+  x-created: '2026-01-01'
+  x-feature: Physical AI & Humanoid Robotics
+  x-plan: '../plan.md'
+
+paths:
+  /sensor_data:
+    post:
+      summary: Publish sensor readings from all robot sensors
+      description: Publishes sensor readings from all robot sensors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SensorData'
+      responses:
+        '200':
+          description: Sensor data published successfully
+      x-ros-topic: /sensor_data
+      x-ros-type: sensor_msgs/MultiChannelData
+      x-ros-qos:
+        reliability: reliable
+        durability: transient_local
+      x-ros-rate: 30Hz for cameras, 100Hz for IMU, 50Hz for other sensors
+
+  /robot_state:
+    post:
+      summary: Publish current robot state
+      description: Publishes current robot state including position, velocity, and orientation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RobotState'
+      responses:
+        '200':
+          description: Robot state published successfully
+      x-ros-topic: /robot_state
+      x-ros-type: nav_msgs/Odometry
+      x-ros-qos:
+        reliability: reliable
+        durability: volatile
+      x-ros-rate: 50Hz
+
+  /cmd_vel:
+    post:
+      summary: Send velocity commands
+      description: Sends velocity commands to the robot base controller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Twist'
+      responses:
+        '200':
+          description: Velocity command sent successfully
+      x-ros-topic: /cmd_vel
+      x-ros-type: geometry_msgs/Twist
+      x-ros-qos:
+        reliability: reliable
+        durability: volatile
+      x-ros-rate: 10Hz
+
+  /navigate_to_pose:
+    post:
+      summary: Navigate to specified pose
+      description: Navigate robot to a specified pose
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NavigateToPoseGoal'
+      responses:
+        '200':
+          description: Navigation goal accepted
+      x-ros-action: /navigate_to_pose
+      x-ros-type: nav2_msgs/NavigateToPose
+      x-ros-feedback: true
+
+  /process_command:
+    post:
+      summary: Process voice or text commands
+      description: Process voice or text commands through VLA system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessCommandRequest'
+      responses:
+        '200':
+          description: Command processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessCommandResponse'
+      x-ros-service: /process_command
+      x-ros-type: physical_ai_msgs/ProcessCommand
+
+  /get_robot_status:
+    post:
+      summary: Get robot operational status
+      description: Get current robot operational status
+      responses:
+        '200':
+          description: Robot status retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RobotStatusResponse'
+      x-ros-service: /get_robot_status
+      x-ros-type: std_srvs/Trigger
+
+  /set_robot_mode:
+    post:
+      summary: Set robot operational mode
+      description: Set robot operational mode (navigation, manipulation, idle, etc.)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetRobotModeRequest'
+      responses:
+        '200':
+          description: Robot mode set successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetRobotModeResponse'
+      x-ros-service: /set_robot_mode
+      x-ros-type: physical_ai_msgs/SetRobotMode
+
+components:
+  schemas:
+    Header:
+      type: object
+      properties:
+        stamp:
+          type: string
+          description: Time stamp
+        frame_id:
+          type: string
+          description: Frame identifier
+      required:
+        - stamp
+        - frame_id
+
+    SensorData:
+      type: object
+      properties:
+        header:
+          $ref: '#/components/schemas/Header'
+        sensors:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              data:
+                type: array
+                items:
+                  type: number
+              quality:
+                type: number
+                minimum: 0
+                maximum: 1
+      required:
+        - header
+        - sensors
+
+    RobotState:
+      type: object
+      properties:
+        header:
+          $ref: '#/components/schemas/Header'
+        child_frame_id:
+          type: string
+        pose:
+          type: object
+          properties:
+            pose:
+              type: object
+              properties:
+                position:
+                  $ref: '#/components/schemas/Point'
+                orientation:
+                  $ref: '#/components/schemas/Quaternion'
+            covariance:
+              type: array
+              items:
+                type: number
+              minItems: 36
+              maxItems: 36
+        twist:
+          type: object
+          properties:
+            linear:
+              $ref: '#/components/schemas/Vector3'
+            angular:
+              $ref: '#/components/schemas/Vector3'
+            covariance:
+              type: array
+              items:
+                type: number
+              minItems: 36
+              maxItems: 36
+      required:
+        - header
+        - child_frame_id
+        - pose
+        - twist
+
+    Point:
+      type: object
+      properties:
+        x:
+          type: number
+        y:
+          type: number
+        z:
+          type: number
+      required:
+        - x
+        - y
+        - z
+
+    Quaternion:
+      type: object
+      properties:
+        x:
+          type: number
+        y:
+          type: number
+        z:
+          type: number
+        w:
+          type: number
+      required:
+        - x
+        - y
+        - z
+        - w
+
+    Vector3:
+      type: object
+      properties:
+        x:
+          type: number
+        y:
+          type: number
+        z:
+          type: number
+      required:
+        - x
+        - y
+        - z
+
+    Twist:
+      type: object
+      properties:
+        linear:
+          $ref: '#/components/schemas/Vector3'
+        angular:
+          $ref: '#/components/schemas/Vector3'
+      required:
+        - linear
+        - angular
+
+    NavigateToPoseGoal:
+      type: object
+      properties:
+        pose:
+          type: object
+          properties:
+            header:
+              $ref: '#/components/schemas/Header'
+            pose:
+              $ref: '#/components/schemas/Pose'
+      required:
+        - pose
+
+    Pose:
+      type: object
+      properties:
+        position:
+          $ref: '#/components/schemas/Point'
+        orientation:
+          $ref: '#/components/schemas/Quaternion'
+      required:
+        - position
+        - orientation
+
+    ProcessCommandRequest:
+      type: object
+      properties:
+        command:
+          type: string
+        visual_context:
+          $ref: '#/components/schemas/Image'
+      required:
+        - command
+
+    Image:
+      type: object
+      properties:
+        header:
+          $ref: '#/components/schemas/Header'
+        height:
+          type: integer
+        width:
+          type: integer
+        encoding:
+          type: string
+        is_bigendian:
+          type: integer
+        step:
+          type: integer
+        data:
+          type: array
+          items:
+            type: integer
+      required:
+        - header
+        - height
+        - width
+        - encoding
+        - is_bigendian
+        - step
+        - data
+
+    ProcessCommandResponse:
+      type: object
+      properties:
+        action_plan:
+          type: string
+        confidence_score:
+          type: number
+          minimum: 0
+          maximum: 1
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+        - action_plan
+        - confidence_score
+        - success
+        - message
+
+    RobotStatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+        - success
+        - message
+
+    SetRobotModeRequest:
+      type: object
+      properties:
+        mode:
+          type: string
+          enum: [navigation, manipulation, idle, emergency_stop]
+      required:
+        - mode
+
+    SetRobotModeResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        previous_mode:
+          type: string
+        message:
+          type: string
+      required:
+        - success
+        - previous_mode
+        - message
+
+x-quality-of-service:
+  critical_control:
+    reliability: reliable
+    durability: volatile
+    history: keep_last
+    rate: "50-100Hz"
+  sensor_data:
+    reliability: best_effort  # for high-frequency like cameras
+    reliability_alt: reliable  # for critical like IMU
+    durability: volatile
+    history: keep_last
+  command_control:
+    reliability: reliable
+    durability: volatile
+    history: keep_last
+    history_debug: keep_last_10  # for debugging
+
+x-validation-requirements:
+  message_validation:
+    - "All timestamps must be recent (within 1 second)"
+    - "All numerical values must be within physical limits"
+    - "All frame IDs must be valid and registered"
+    - "All joint names must correspond to actual robot joints"
+  interface_compatibility:
+    - "All topics must have matching message types between publishers and subscribers"
+    - "All services must have matching request/response types"
+    - "All actions must have matching goal/feedback/result types"
+    - "All interfaces must support the specified QoS profiles"
+  performance_requirements:
+    - "Control topics: <10ms latency"
+    - "Sensor topics: <50ms latency for processing"
+    - "Service calls: <1000ms response time"
+    - "Action goals: Configurable timeout (default 30 seconds)"

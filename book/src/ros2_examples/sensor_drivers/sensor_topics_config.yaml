@@ -1,0 +1,114 @@
+# ROS 2 Sensor Topic Configuration for Humanoid Robot
+# This file defines the sensor topics used in the robotic system
+
+sensor_topics:
+
+  # IMU data topic - for inertial measurement unit readings
+  imu_data:
+    name: "/imu/data"
+    type: "sensor_msgs/Imu"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    frame_id: "imu_frame"
+    description: "IMU sensor readings including orientation, angular velocity, and linear acceleration"
+
+  # Camera image topic - for visual sensor data
+  camera_image_raw:
+    name: "/camera/image_raw"
+    type: "sensor_msgs/Image"
+    qos:
+      depth: 5
+      reliability: "best_effort"
+      durability: "volatile"
+    frame_id: "camera_frame"
+    description: "Raw camera image data from visual sensors"
+
+  # TF topic - for transform data (dynamic)
+  tf:
+    name: "/tf"
+    type: "tf2_msgs/TFMessage"
+    qos:
+      depth: 100
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Dynamic transforms between coordinate frames"
+
+  # TF static topic - for static transform data
+  tf_static:
+    name: "/tf_static"
+    type: "tf2_msgs/TFMessage"
+    qos:
+      depth: 100
+      reliability: "reliable"
+      durability: "transient_local"
+    description: "Static transforms between coordinate frames"
+
+  # Additional sensor topics
+  lidar_scan:
+    name: "/scan"
+    type: "sensor_msgs/LaserScan"
+    qos:
+      depth: 10
+      reliability: "best_effort"
+      durability: "volatile"
+    frame_id: "lidar_frame"
+    description: "LIDAR scan data with distance measurements"
+
+  temperature:
+    name: "/temperature"
+    type: "sensor_msgs/Temperature"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    frame_id: "temperature_frame"
+    description: "Temperature sensor readings"
+
+  joint_states:
+    name: "/joint_states"
+    type: "sensor_msgs/JointState"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    frame_id: "base_link"
+    description: "Current joint positions, velocities, and efforts"
+
+sensor_frames:
+  # Coordinate frame definitions for sensor data
+  base_frame: "base_link"
+  camera_frame: "camera_frame"
+  lidar_frame: "lidar_frame"
+  imu_frame: "imu_frame"
+  temperature_frame: "temperature_frame"
+
+qos_profiles:
+  sensor_data:
+    # For time-sensitive sensor data (images, point clouds, etc.)
+    reliability: "best_effort"
+    durability: "volatile"
+    history: "keep_last"
+    depth: 5
+
+  critical_data:
+    # For critical sensor data (IMU, odometry, etc.)
+    reliability: "reliable"
+    durability: "volatile"
+    history: "keep_last"
+    depth: 10
+
+  transform_data:
+    # For transform data
+    reliability: "reliable"
+    durability: "volatile"
+    history: "keep_last"
+    depth: 100
+
+  static_transform:
+    # For static transform data
+    reliability: "reliable"
+    durability: "transient_local"
+    history: "keep_last"
+    depth: 100

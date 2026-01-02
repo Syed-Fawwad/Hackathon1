@@ -1,0 +1,23 @@
+.features {
+  display: flex;
+  align-items: center;
+  padding: 4rem 0;
+  width: 100%;
+  background: white;
+}
+
+html[data-theme='dark'] .features {
+  background: var(--robot-dark);
+}
+
+.featureSvg {
+  height: 120px;
+  width: 120px;
+  margin: 0 auto 1rem;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.featureSvg:hover {
+  transform: scale(1.1) rotate(5deg);
+}

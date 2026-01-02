@@ -1,0 +1,18 @@
+# Unity Teleoperation Action
+# Action for controlling Unity-based teleoperation
+
+# Goal: Contains the teleoperation command
+string command
+float32 linear_velocity
+float32 angular_velocity
+int32 duration_ms
+
+---
+# Result: Result of the teleoperation action
+bool success
+string message
+
+---
+# Feedback: Feedback during teleoperation
+string status
+float32 progress

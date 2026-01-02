@@ -1,0 +1,30 @@
+# Global parameters
+/**:
+  ros__parameters:
+    use_sim_time: false
+    log_level: "info"
+
+# Parameters for publisher node
+minimal_publisher:
+  ros__parameters:
+    publish_frequency: 2.0  # Hz
+    message_prefix: "Hello"
+    counter_step: 1
+
+# Parameters for subscriber node
+minimal_subscriber:
+  ros__parameters:
+    subscription_queue_size: 10
+    echo_enabled: true
+
+# Parameters for service node
+minimal_service:
+  ros__parameters:
+    max_request_size: 100
+    response_timeout: 5.0
+
+# Parameters for action server node
+minimal_action_server:
+  ros__parameters:
+    max_sequence_length: 100
+    feedback_rate: 1.0  # Hz

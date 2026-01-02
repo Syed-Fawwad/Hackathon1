@@ -1,0 +1,107 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# ROS 2
+*.log
+*.log.*
+log/
+build/
+install/
+devel/
+build_isolated/
+install_isolated/
+devel_isolated/
+*.pcd
+*.bag
+*.db3
+
+# C++
+*.o
+*.a
+*.so
+*.dll
+*.dylib
+*.exe
+obj/
+bin/
+Debug/
+Release/
+x64/
+build/
+cmake-build-*/
+
+# Docker
+Dockerfile*
+.dockerignore
+*.dockerfile
+.docker
+
+# Docusaurus
+node_modules/
+.docusaurus/
+.build/
+dist/
+.cache/
+.temp/
+.vercel/
+.nx/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

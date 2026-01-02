@@ -1,0 +1,23 @@
+# Calibrate Parameters Action
+# Action for calibrating robot parameters
+
+# Goal: Contains calibration parameters and settings
+string calibration_type  # 'full', 'inertia', 'com', 'friction', etc.
+float32 confidence_threshold
+int32 max_iterations
+float32 tolerance
+bool save_after_calibration
+
+---
+# Result: Result of the calibration action
+bool success
+string message
+float32 calibration_score
+string calibrated_parameters
+
+---
+# Feedback: Feedback during calibration
+string status
+float32 progress
+float32 current_error
+string current_parameter

@@ -1,0 +1,98 @@
+# ROS 2 Topic Configuration for Humanoid Robot Communication Framework
+# This file defines the core topics used in the robotic nervous system
+
+topics:
+  # Sensor data topic - for raw and processed sensor information
+  sensor_data:
+    name: "/sensor_data"
+    type: "std_msgs/String"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Raw and processed sensor data from all robot sensors"
+
+  # Robot state topic - for current robot state information
+  robot_state:
+    name: "/robot_state"
+    type: "std_msgs/String"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Current robot state including position, orientation, and status"
+
+  # Command velocity topic - for base movement commands
+  cmd_vel:
+    name: "/cmd_vel"
+    type: "geometry_msgs/Twist"
+    qos:
+      depth: 1
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Velocity commands for robot base control"
+
+  # Joint states topic - for current joint positions and velocities
+  joint_states:
+    name: "/joint_states"
+    type: "sensor_msgs/JointState"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "transient_local"
+    description: "Current joint positions, velocities, and efforts"
+
+  # Additional topics for complete system
+  perception_results:
+    name: "/perception_results"
+    type: "std_msgs/String"
+    qos:
+      depth: 10
+      reliability: "best_effort"
+      durability: "volatile"
+    description: "Results from perception processing"
+
+  plan_results:
+    name: "/plan_results"
+    type: "std_msgs/String"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Results from planning algorithms"
+
+  control_commands:
+    name: "/control_commands"
+    type: "std_msgs/String"
+    qos:
+      depth: 5
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Low-level control commands"
+
+  fused_sensor_data:
+    name: "/fused_sensor_data"
+    type: "std_msgs/String"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Fused data from multiple sensors"
+
+  estimated_robot_state:
+    name: "/estimated_robot_state"
+    type: "nav_msgs/Odometry"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Estimated robot state from sensor fusion"
+
+  environment_map:
+    name: "/environment_map"
+    type: "std_msgs/String"
+    qos:
+      depth: 5
+      reliability: "best_effort"
+      durability: "volatile"
+    description: "Environment representation from sensor data"

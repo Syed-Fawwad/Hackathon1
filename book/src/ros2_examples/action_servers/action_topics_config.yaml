@@ -1,0 +1,100 @@
+# ROS 2 Action Topic Configuration for Humanoid Robot
+# This file defines the action-related topics used in the robotic system
+
+action_topics:
+
+  # Action feedback topic - for real-time feedback during action execution
+  action_feedback:
+    name: "/action_feedback"
+    type: "std_msgs/String"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Real-time feedback messages from action execution"
+
+  # Action status topic - for overall action status updates
+  action_status:
+    name: "/action_status"
+    type: "std_msgs/String"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Status updates for action execution"
+
+  # Behavior status topic - for behavior state updates
+  behavior_status:
+    name: "/behavior_status"
+    type: "std_msgs/String"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Status updates for behavior execution"
+
+  # State machine status topic - for state machine updates
+  state_machine_status:
+    name: "/state_machine_status"
+    type: "std_msgs/String"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Status updates for state machine states"
+
+  # Service status topic - for service execution updates
+  service_status:
+    name: "/service_status"
+    type: "std_msgs/String"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Status updates for service execution"
+
+  # Robot status topic - for overall robot status
+  robot_status:
+    name: "/robot_status"
+    type: "std_msgs/String"
+    qos:
+      depth: 10
+      reliability: "reliable"
+      durability: "volatile"
+    description: "Overall robot status updates"
+
+action_qos_profiles:
+  feedback_data:
+    # For real-time action feedback
+    reliability: "reliable"
+    durability: "volatile"
+    history: "keep_last"
+    depth: 10
+
+  status_data:
+    # For status updates
+    reliability: "reliable"
+    durability: "volatile"
+    history: "keep_last"
+    depth: 10
+
+  critical_status:
+    # For critical status updates
+    reliability: "reliable"
+    durability: "transient_local"
+    history: "keep_last"
+    depth: 5
+
+action_frames:
+  # Coordinate frames relevant to action execution
+  base_frame: "base_link"
+  map_frame: "map"
+  odom_frame: "odom"
+
+action_parameters:
+  # Default parameters for action execution
+  default_timeout: 30.0  # seconds
+  feedback_rate: 10.0    # Hz
+  max_active_behaviors: 3
+  enable_behavior_logging: true
+  enable_service_logging: true

@@ -1,0 +1,67 @@
+# Robot control configuration for the humanoid robot
+
+humanoid_robot:
+  # Joint state broadcaster
+  joint_state_broadcaster:
+    type: joint_state_broadcaster/JointStateBroadcaster
+
+  # Individual joint controllers
+  left_shoulder_controller:
+    type: position_controllers/JointPositionController
+    joint: left_shoulder_joint
+    interface: position_interface
+    publish_rate: 50
+
+  left_elbow_controller:
+    type: position_controllers/JointPositionController
+    joint: left_elbow_joint
+    interface: position_interface
+    publish_rate: 50
+
+  right_shoulder_controller:
+    type: position_controllers/JointPositionController
+    joint: right_shoulder_joint
+    interface: position_interface
+    publish_rate: 50
+
+  right_elbow_controller:
+    type: position_controllers/JointPositionController
+    joint: right_elbow_joint
+    interface: position_interface
+    publish_rate: 50
+
+  left_hip_controller:
+    type: position_controllers/JointPositionController
+    joint: left_hip_joint
+    interface: position_interface
+    publish_rate: 50
+
+  left_knee_controller:
+    type: position_controllers/JointPositionController
+    joint: left_knee_joint
+    interface: position_interface
+    publish_rate: 50
+
+  right_hip_controller:
+    type: position_controllers/JointPositionController
+    joint: right_hip_joint
+    interface: position_interface
+    publish_rate: 50
+
+  right_knee_controller:
+    type: position_controllers/JointPositionController
+    joint: right_knee_joint
+    interface: position_interface
+    publish_rate: 50
+
+# Robot description parameters
+robot_description:
+  # This is typically loaded from the URDF file
+  # Defined here for reference
+  gazebo:
+    # Gazebo-specific parameters
+    plugin:
+      imu:
+        topic: /imu/data
+        always_on: true
+        update_rate: 100
